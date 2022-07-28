@@ -12,6 +12,22 @@ class TypeController {
         const types = await Type.findAll()
         return res.json(types)
     }
+
+    async deleteOne(req, res, next) {
+        const { name } = req.body
+        const type = await Type.findOne({ where: { name } })
+        if (!type) {
+            return next(ApiError.badRequest('такой тип не найден'))
+        }
+        if (type) {
+            await type.destroy(
+                {
+                    where: { name }
+                }
+            )
+        }
+        return res.json({ message: 'тип удален из списка' })
+    }
 }
 
 export default new TypeController()

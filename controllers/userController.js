@@ -39,12 +39,28 @@ class UserController {
             return next(ApiError.badRequest('указан неверный пароль'))
         }
         const token = generateJwt(user.id, user.email, user.role)
-        return res.json({token})
+        return res.json({ token })
     }
 
     async check(req, res, next) {
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
-        return res.json({token})
+        return res.json({ token })
+    }
+
+    async deleteOne(req, res, next) {
+        const { email } = req.body
+        const user = await User.findOne({ where: { email } })
+        if (!user) {
+            return next(ApiError.badRequest('пользователь с таким логином не найден'))
+        }
+        if (user) {
+            await user.destroy(
+                {
+                    where: { email }
+                }
+            )
+        }
+        return res.json({ message: 'пользователь удален' })
     }
 }
 
