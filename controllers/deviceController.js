@@ -1,4 +1,4 @@
-import uuid from "uuid"
+import { } from "uuid"
 import path from 'path'
 import { Device, DeviceInfo } from '../models/models'
 import ApiError from "../error/ApiError"
