@@ -2,9 +2,9 @@ import {} from 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import sequelize from './database'
+import './models/models'
 
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001
   
 const app = express()
 app.use(cors())
